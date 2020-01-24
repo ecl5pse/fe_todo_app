@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Task = sequelize.define({
+  const Task = sequelize.define('Task',{
     isDone: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
       },
-
     },
 
     deadline: {
@@ -26,14 +25,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
-
   Task.associate = function(models) {
     Task.belongsTo(models.User, {
       foreignKey: {
         field: 'userId',
-
       },
     });
   };
+
   return Task;
 };
