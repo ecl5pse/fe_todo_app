@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'userId',
 
       },
+      as:'tasks'
     });
   };
   return User;

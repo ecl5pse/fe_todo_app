@@ -1,5 +1,34 @@
 import {User, Task} from './db/models';
 
+async  function getTasksWithOwners(){
+  try {
+
+    const  task = await Task.findAll(
+        {
+
+          where:{
+            isDone:true,
+          },
+
+          include:[
+            {
+              model:User,
+              as:'owner',
+            }
+          ]
+        }
+    )
+  }
+  return  tas
+  catch (e) {
+    
+  }
+}
+
+
+
+
+
 async function getUsersWithTasks() {
 
   try {
@@ -12,6 +41,7 @@ async function getUsersWithTasks() {
       include: [
         {
           model: Task,
+          as:'tasks'
         },
       ],
     });

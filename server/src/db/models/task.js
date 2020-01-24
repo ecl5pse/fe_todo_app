@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: {
         field: 'userId',
       },
+      as:{
+        singular:'owner',
+        plural:'owners'
+      }
     });
   };
 
