@@ -2,11 +2,11 @@ import express from 'express';
 import {User} from './db/models';
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5002;
 
 app.use(express.json());
 app.get('/', (req, res) => res.send('Hello World!'));
-app.post('/user', async (req, res) => {
+app.post('/user', async (req, res, next) => {
   try {
 
     console.log(1);
@@ -15,10 +15,10 @@ app.post('/user', async (req, res) => {
 
   } catch (e) {
 
-        next(e);
+        next( e );
   }
 });
-app.use((err,req,res) =>{
+app.use((err,req ,res) =>{
   res.status(500).send("Something broke!");
 });
 
