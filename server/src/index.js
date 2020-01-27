@@ -1,57 +1,40 @@
-import {User, Task} from './db/models';
+import {CreditCard, sequelize} from './db/models';
 
-async  function getTasksWithOwners(){
+async function transaction(fromCardId, toCardId, value) {
   try {
 
-    const  task = await Task.findAll(
-        {
+    const fromCard = await CreditCard.findByPk(fromCardId);
+    const toCard = await CreditCard.findByPk(toCardId);
 
-          where:{
-            isDone:true,
-          },
+    console.group('Before');
+    console.log(fromCard.get());
+    console.log(toCard.get());
+    console.groupEnd();
 
-          include:[
-            {
-              model:User,
-              as:'owner',
-            }
-          ]
-        }
-    )
-  }
-  return  tas
-  catch (e) {
-    
-  }
-}
+    const t = await sequelize.transaction();
 
-
-
-
-
-async function getUsersWithTasks() {
-
-  try {
-
-    const result = User.findAll({
-      limit: 10,
-      attributes: {
-        exclude: ['password'],
-      },
-      include: [
-        {
-          model: Task,
-          as:'tasks'
-        },
-      ],
+    fromCard.balance -= value;
+    const updatedFromCard = await fromCard.save({
+      transaction: t,
     });
 
-    return result.map(item => item.get());
+    toCard.balance = +toCard.balance + value;
+    const updatedToCard = await toCard.save(
+        {
+          transaction: t,
+        },
+    );
+
+    await t.commit();
+
+    console.group('After');
+    console.log(updatedFromCard.get());
+    console.log(updatedToCard.get());
+    console.groupEnd();
 
   } catch (e) {
-
+    console.error(e);
   }
-
 }
 
-getUsersWithTasks().then(console.log);
+transaction(1, 2, 100);
