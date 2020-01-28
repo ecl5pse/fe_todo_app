@@ -1,16 +1,8 @@
 {
-<<<<<<< HEAD
   "plugins": [
     "@babel/plugin-transform-destructuring"
   ],
   "presets": [
     "@babel/preset-env"
-=======
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-destructuring"
->>>>>>> origin/develop
-  ]
+]
 }

@@ -1,5 +1,6 @@
 'use strict';
 import bcrypt from 'bcrypt';
+import {LOGIN_PATTERN} from '../../constants';
 module.exports = (sequelize, DataTypes) => {
 
   const User = sequelize.define('User', {
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
+        is:LOGIN_PATTERN,
         len: [6, 16],
       },
     },
