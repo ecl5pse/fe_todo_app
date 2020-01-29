@@ -7,14 +7,14 @@ export async function createUser(req, res, next) {
     const createdUser = await User.create(req.body);
 
     if (createdUser) {
-
+      return res.status( 201 ).send( createdUser );
       const  userData = createdUser.get();
       delete userData.password;
-      return res.status(201).send(createdUser);
+      return res.status(201).send(userData);
 
     }
 
-       next(new Error());
+    next(new Error());
 
   } catch (e) {
 
