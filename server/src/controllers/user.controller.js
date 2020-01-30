@@ -1,4 +1,5 @@
 import {User} from './../db/models';
+import  AppErrors from  '../utils/applicationErrors';
 
 export async function createUser(req, res, next) {
 
@@ -13,7 +14,7 @@ export async function createUser(req, res, next) {
 
     }
 
-    next(new Error());
+    next(new AppErrors.BadRequestError());
 
   } catch (e) {
 
@@ -40,7 +41,7 @@ export async function updateUserByPk(req, res, next) {
       return res.send(data);
 
     }
-    next('Resource not found!');
+    next( new AppErrors.NotFoundError('User'));
   } catch (e) {
 
     next(e);
@@ -58,7 +59,7 @@ export async function getUserByPk(req, res, next) {
       return res.send(foundUser);
     }
 
-    next('Resource not found');
+    next( new  AppErrors.NotFoundError('User'));
   } catch (e) {
     next(e);
   }
@@ -69,15 +70,15 @@ export async function deleteUserByPk(req, res, next) {
   try {
 
     const deleteRowsCount = await User.destroy({
-                                                 where: {
-                                                   id: req.params.userId,
-                                                 },
-                                               });
+      where: {
+        id: req.params.userId,
+      },
+    });
 
     if (deleteRowsCount) {
       res.send(`${deleteRowsCount}`);
     }
-    next( 'Resource not found!' );
+    next( new AppErrors.NotFoundError('User'));
 
   } catch (e) {
     next(e);

@@ -2,21 +2,19 @@ import express from 'express';
 import { createUser ,deleteUserByPk, getUserByPk, updateUserByPk } from '../controllers/user.controller.js';
 import {validateUserOnCreate , validateUserOnUpdate} from '../middlewares/user/validateUser.js';
 
-const  userRouter = express.Router();
+const userRouter = express.Router();
 
-
-userRouter.post( '/',
-                  validateUserOnCreate,
-                 createUser
+userRouter.post('/',
+    validateUserOnCreate,
+    createUser,
 );
 
 userRouter.patch(
     '/:userId',
     validateUserOnUpdate,
-    updateUserByPk
-
+    updateUserByPk,
 );
 
-userRouter.get( '/:userId', getUserByPk );
-userRouter.delete( '/:userId', deleteUserByPk );
-export  default  userRouter;
+userRouter.get('/:userId', getUserByPk);
+userRouter.delete('/:userId', deleteUserByPk);
+export default userRouter;
