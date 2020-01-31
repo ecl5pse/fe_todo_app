@@ -36,7 +36,7 @@ export const ENTITY = {
 
 /**
  * @readonly
- * @enum {RoleType}
+ * @enum{RoleType}
  */
 
 export const ROLE = {
