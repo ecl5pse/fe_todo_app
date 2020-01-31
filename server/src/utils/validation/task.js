@@ -1,14 +1,12 @@
-import  JoiBase from "@hapi/joi";
-import JoiDate from "@hapi/joi-date";
+import Joi from '@hapi/joi';
 
 
-const Joi = JoiBase.extend(JoiDate);
-
-const isDoneSchema = Joi.boolean.strict().validate('true');
-const valueSchema = Joi.string().max(255);
-const deadlineSchema = Joi.date().format('YYYY-MM-DD').utc();
+const isDoneSchema = Joi.boolean().optional();
+const valueSchema = Joi.string().trim().min(1).max(255);
+const deadlineSchema = Joi.date().greater('now');
 
 export default Joi.object({
+
   isDone: isDoneSchema.label('is done').when('$isCreateMode', {
     then: isDoneSchema.required(),
   }),

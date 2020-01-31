@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
+
   const Task = sequelize.define('Task',{
     isDone: {
       type: DataTypes.BOOLEAN,

@@ -1,18 +1,17 @@
 import express from 'express';
 import { createUser ,deleteUserByPk, getUserByPk, updateUserByPk } from '../controllers/user.controller.js';
-import {validateUserOnCreate , validateUserOnUpdate} from '../middlewares/user/validateUser.js';
+import schemas                                                     from '../utils/validation';
+import createValidateMW from '../middlewares/validation/createValidationMW';
 
 const userRouter = express.Router();
 
-userRouter.post('/',
-    validateUserOnCreate,
-    createUser,
+userRouter.post( '/',
+    createValidateMW( schemas.userSchema )(),
+    createUser
 );
-
-userRouter.patch(
-    '/:userId',
-    validateUserOnUpdate,
-    updateUserByPk,
+userRouter.patch( '/:userId',
+    createValidateMW( schemas.userSchema )( false ),
+    updateUserByPk
 );
 
 userRouter.get('/:userId', getUserByPk);
