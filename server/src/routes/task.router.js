@@ -21,7 +21,7 @@ taskRouter.get('/:taskId',
 );
 taskRouter.patch('/:taskId',
     checkPermissions(ACTION.UPDATE),
-    createValidationMW(schemas.taskSchema)(false),
+    createValidationMW(schemas.taskSchema)(ACTION.UPDATE),
     TaskController.updateTask,
 );
 taskRouter.delete('/:taskId',

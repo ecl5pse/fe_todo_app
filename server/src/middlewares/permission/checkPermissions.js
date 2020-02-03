@@ -1,7 +1,4 @@
 import AppError from '../../utils/applicationErrors';
-
-
-
 /**
  *
  * @param {EntityType } action

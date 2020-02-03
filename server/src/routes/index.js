@@ -10,6 +10,7 @@ const  router =  express.Router();
 router.use(checkUserAuthorization);
 router.use('/user', userRouter);
 router.use( '/task', taskRouter );
+
 router.use('/*', function(req, res , next) {
   
   next( new  AppError.NotFoundError());

@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import router from './routes';
 import errorHandlers from './middlewares/errorHandlers';
-
 /*
  * define server port
  * */
@@ -26,11 +25,9 @@ app.use(router);
 /*
  * error handling
  * */
-
 app.use(errorHandlers.applicationErrorHandler);
 app.use(errorHandlers.validationErrorHandler);
 app.use(errorHandlers.sequelizeErrorHandler);
-
 
 app.use((err, req, res) => {
   res.status(500).send('Internal server error!');

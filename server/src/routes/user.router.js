@@ -12,25 +12,25 @@ import checkPermissions from '../middlewares/permission/checkPermissions';
 import {ACTION, ENTITY} from '../constants';
 
 const userRouter = express.Router();
-const checkUSerPermissions = checkPermissions(ENTITY.USER);
+const checkUserPermissions = checkPermissions(ENTITY.USER);
 
 userRouter.post('/',
-    checkUSerPermissions(ACTION.CREATE),
-    createValidateMW(schemas.userSchema)(),
+    checkUserPermissions(ACTION.CREATE),
+    createValidateMW(schemas.userSchema)(ACTION.CREATE),
     createUser,
 );
 userRouter.patch('/:userId',
-    checkUSerPermissions(ACTION.UPDATE),
-    createValidateMW(schemas.userSchema)(false),
+    checkUserPermissions(ACTION.UPDATE),
+    createValidateMW(schemas.userSchema)(ACTION.UPDATE),
     updateUserByPk,
 );
 
 userRouter.get('/:userId',
-    checkUSerPermissions(ACTION.READ),
+    checkUserPermissions(ACTION.READ),
     getUserByPk);
 
 userRouter.delete('/:userId',
-    checkUSerPermissions(ACTION.DELETE),
+    checkUserPermissions(ACTION.DELETE),
     deleteUserByPk);
 
 export default userRouter;
