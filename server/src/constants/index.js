@@ -10,12 +10,12 @@ export const PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)[A-Za-z0-9_@#
  * @readonly
  * @enum {ActionType}
  */
-export const ACTION = {
+export const ACTION = Object.freeze({
   CREATE: Symbol('CREATE'),
   READ: Symbol('READ'),
   UPDATE: Symbol('UPDATE'),
   DELETE: Symbol('DELETE'),
-};
+});
 
 /**
  * @typedef {Symbol} EntityType
@@ -25,10 +25,10 @@ export const ACTION = {
  * @readonly
  * @enum {EntityType}
  */
-export const ENTITY = {
+export const ENTITY = Object.freeze({
   USER: Symbol('USER'),
   TASK: Symbol('TASK'),
-};
+});
 
 /**
  * @typedef{string} RoleType
@@ -39,9 +39,9 @@ export const ENTITY = {
  * @enum{RoleType}
  */
 
-export const ROLE = {
+export const ROLE = Object.freeze({
   USER: 'USER',
   ADMIN: 'ADMIN',
   MODERATOR: 'MODERATOR',
 
-};
+});

@@ -1,36 +1,35 @@
-import express from 'express';
-import {
-  createUser,
-  deleteUserByPk,
-  getUserByPk,
-  updateUserByPk,
-} from '../controllers/user.controller.js';
-
-import schemas from '../utils/validation';
-import createValidateMW from '../middlewares/validation/createValidationMW';
-import checkPermissions from '../middlewares/permission/checkPermissions';
-import {ACTION, ENTITY} from '../constants';
+import express                                                     from 'express';
+import { createUser, deleteUserByPk, getUserByPk, updateUserByPk } from '../controllers/user.controller.js';
+import createValidationMW
+  from '../middlewares/validation/createValidationMW.js';
+import schemas                                                     from '../utils/validation';
+import createPermissionMW
+  from '../middlewares/permission/createPermissionMW.js';
+import { ACTION, ENTITY }                                          from '../constants';
 
 const userRouter = express.Router();
-const checkUserPermissions = checkPermissions(ENTITY.USER);
 
-userRouter.post('/',
-    checkUserPermissions(ACTION.CREATE),
-    createValidateMW(schemas.userSchema)(ACTION.CREATE),
-    createUser,
+const createUserPermissionMW = createPermissionMW( ENTITY.USER );
+const createUserValidationMW = createValidationMW( schemas.userSchema );
+
+userRouter.post( '/',
+    createUserPermissionMW( ACTION.CREATE ),
+    createUserValidationMW( ACTION.CREATE ),
+    createUser
 );
-userRouter.patch('/:userId',
-    checkUserPermissions(ACTION.UPDATE),
-    createValidateMW(schemas.userSchema)(ACTION.UPDATE),
-    updateUserByPk,
+userRouter.patch( '/:userId',
+    createUserPermissionMW( ACTION.UPDATE ),
+    createUserValidationMW( ACTION.UPDATE ),
+    updateUserByPk
+);
+userRouter.get( '/:userId',
+    createUserPermissionMW( ACTION.READ ),
+    getUserByPk
 );
 
-userRouter.get('/:userId',
-    checkUserPermissions(ACTION.READ),
-    getUserByPk);
-
-userRouter.delete('/:userId',
-    checkUserPermissions(ACTION.DELETE),
-    deleteUserByPk);
+userRouter.delete( '/:userId',
+    createUserPermissionMW( ACTION.DELETE ),
+    deleteUserByPk
+);
 
 export default userRouter;

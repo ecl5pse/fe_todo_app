@@ -5,7 +5,7 @@ import errorHandlers from './middlewares/errorHandlers';
 /*
  * define server port
  * */
-const PORT = process.env.PORT || 5010;
+const PORT = process.env.PORT || 5000;
 /*
  * create server app instance
  * */

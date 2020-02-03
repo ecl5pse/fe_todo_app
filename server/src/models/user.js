@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       as:'tasks'
     });
+    User.belongsToMany(models.Role, {
+      through:'UserRoles',
+    })
   };
 
 
