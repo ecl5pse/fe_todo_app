@@ -7,24 +7,24 @@ import { ACTION, ENTITY } from '../constants';
 
 const taskRouter = express.Router();
 
-const createTaskPermissionMW = createPermissionMW( ENTITY.TASK );
+const createTaskPermissionMW = createPermissionMW( ENTITY.TASK);
 
 taskRouter.post( '/',
-    createPermissionMW( ACTION.CREATE ),
+    createTaskPermissionMW( ACTION.CREATE ),
     createValidationMW( schemas.taskSchema )(),
     TaskController.createTask,
 );
 taskRouter.get( '/:taskId',
-    createPermissionMW( ACTION.READ ),
+    createTaskPermissionMW( ACTION.READ ),
     TaskController.getTask
 );
 taskRouter.patch( '/:taskId',
-    createPermissionMW( ACTION.UPDATE ),
+    createTaskPermissionMW( ACTION.UPDATE ),
     createValidationMW( schemas.taskSchema )( ACTION.UPDATE ),
     TaskController.updateTask
 );
 taskRouter.delete( '/:taskId',
-    createPermissionMW( ACTION.DELETE ),
+    createTaskPermissionMW( ACTION.DELETE ),
     TaskController.deleteTask
 );
 

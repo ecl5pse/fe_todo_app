@@ -1,20 +1,24 @@
 import AppError from '../../utils/applicationErrors';
+
 /**
  *
- * @param {EntityType } action
- * @return {function(action:ActionType): function(...[*]=)}
+ * @param entity
+ * @return {function(*): function(...[*]=)}
  */
-export  default  (action) =>{
-  return (entity) =>{
-    return (req , res, next) =>{
+export default function(entity) {
+
+ return  function(action) {
+
+    return function(req,res,next) {
       try {
 
 
-        next( new AppError.ForbiddenError())
+
+        next(new AppError.ForbiddenError());
       }catch (e) {
         next(e);
       }
-    }
-  }
-}
 
+    };
+ };
+}

@@ -1,4 +1,5 @@
 import AppErrors from '../../utils/applicationErrors';
+
 export  default  function (req , res, next){
 
   try {
