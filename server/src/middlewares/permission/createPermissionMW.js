@@ -13,7 +13,6 @@ export default function(entity) {
       try {
 
 
-
         next(new AppError.ForbiddenError());
       }catch (e) {
         next(e);
