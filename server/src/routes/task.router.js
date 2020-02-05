@@ -9,23 +9,23 @@ const taskRouter = express.Router();
 
 const createTaskPermissionMW = createPermissionMW( ENTITY.TASK);
 
-taskRouter.post( '/',
-    createTaskPermissionMW( ACTION.CREATE ),
-    createValidationMW( schemas.taskSchema )(),
+taskRouter.post('/',
+    createTaskPermissionMW(ACTION.CREATE),
+    createValidationMW(schemas.taskSchema)(),
     TaskController.createTask,
 );
-taskRouter.get( '/:taskId',
-    createTaskPermissionMW( ACTION.READ ),
-    TaskController.getTask
+taskRouter.get('/:taskId',
+    createTaskPermissionMW(ACTION.READ),
+    TaskController.getTask,
 );
-taskRouter.patch( '/:taskId',
-    createTaskPermissionMW( ACTION.UPDATE ),
-    createValidationMW( schemas.taskSchema )( ACTION.UPDATE ),
-    TaskController.updateTask
+taskRouter.patch('/:taskId',
+    createTaskPermissionMW(ACTION.UPDATE),
+    createValidationMW(schemas.taskSchema)(ACTION.UPDATE),
+    TaskController.updateTask,
 );
-taskRouter.delete( '/:taskId',
-    createTaskPermissionMW( ACTION.DELETE ),
-    TaskController.deleteTask
+taskRouter.delete('/:taskId',
+    createTaskPermissionMW(ACTION.DELETE),
+    TaskController.deleteTask,
 );
 
 

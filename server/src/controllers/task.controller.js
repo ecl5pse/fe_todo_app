@@ -64,5 +64,30 @@ class TaskController {
       next( e );
     }
   }
+
+
+  async getTasks(req,res, next){
+    try{
+      const {
+        authorizationData: {
+          id: userId,
+        },
+      } = req;
+
+      const tasks = await Task.findAll({
+        where:{
+          id:userId,
+        }
+      });
+
+
+      next( new appErrors.NotFoundError( 'Tasks' ) );
+      res.send( tasks );
+    }
+    catch (e) {
+
+      next(e)
+    }
+  }
 }
 export default new TaskController();
